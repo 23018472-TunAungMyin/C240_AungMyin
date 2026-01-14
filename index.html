@@ -14,8 +14,8 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Your existing stylesheet (same as your main site) -->
-  <link rel="stylesheet" href="css/styles.css" />
+  <!-- FIXED: stylesheet path (your repo has styles.css in root, not css/styles.css) -->
+  <link rel="stylesheet" href="./styles.css" />
 
   <!-- Page-specific, minimal CSS to match your layout/colors -->
   <style>
@@ -210,8 +210,9 @@
   <header class="header" role="banner">
     <div class="container">
       <div class="header-content">
-        <a href="home.html" class="logo" aria-label="ScholarMatch Home">
-          <img src="logo.png" alt="ScholarMatch Logo" class="logo-icon" />
+        <a href="./home.html" class="logo" aria-label="ScholarMatch Home">
+          <!-- FIXED: image path (logo.png is in root, same folder as index.html) -->
+          <img src="./logo.png" alt="ScholarMatch Logo" class="logo-icon" />
           <h1 class="logo-text">ScholarMatch</h1>
         </a>
         <nav class="nav" role="navigation" aria-label="Main navigation">
@@ -433,9 +434,6 @@
 
   <!-- JavaScript (inline for simplicity) -->
   <script>
-    // ---------------------------
-    // Sample dataset (replace with your own JSON later)
-    // ---------------------------
     const SCHOLARSHIPS = [
       {
         id: "sm-001",
@@ -551,9 +549,6 @@
       }
     ];
 
-    // ---------------------------
-    // Helpers
-    // ---------------------------
     const $ = (id) => document.getElementById(id);
 
     function formatMoney(n){
@@ -605,7 +600,6 @@
         sort: $("sort").value
       };
 
-      // Active filter count (exclude sort)
       const activeCount =
         (filters.q ? 1 : 0) +
         (filters.level ? 1 : 0) +
@@ -617,7 +611,6 @@
 
       $("activeFilterCount").textContent = `${activeCount} active`;
 
-      // Active chips
       const chips = buildActiveChips(filters);
       const chipWrap = $("activeChips");
       chipWrap.innerHTML = "";
@@ -628,7 +621,6 @@
         chipWrap.appendChild(el);
       });
 
-      // Filter dataset
       let out = SCHOLARSHIPS.slice();
 
       if (filters.q){
@@ -647,7 +639,6 @@
         out = out.filter(s => new Date(s.deadline + "T00:00:00") <= max);
       }
 
-      // Sort
       if (filters.sort === "title_asc"){
         out.sort((a,b) => a.title.localeCompare(b.title));
       } else if (filters.sort === "award_desc"){
@@ -655,7 +646,6 @@
       } else if (filters.sort === "deadline_asc"){
         out.sort((a,b) => new Date(a.deadline) - new Date(b.deadline));
       } else {
-        // relevance
         out.sort((a,b) => computeRelevanceScore(b, filters.q) - computeRelevanceScore(a, filters.q));
       }
 
@@ -704,7 +694,6 @@
         root.appendChild(el);
       });
 
-      // Attach details handlers
       root.querySelectorAll('[data-action="details"]').forEach(btn => {
         btn.addEventListener("click", () => openModal(btn.dataset.id));
       });
@@ -819,7 +808,6 @@
       document.body.style.overflow = "";
     }
 
-    // Basic HTML escaping for safety (demo quality, but good practice)
     function escapeHtml(str){
       return String(str)
         .replaceAll("&","&amp;")
@@ -832,9 +820,6 @@
       return escapeHtml(str).replaceAll("`","&#096;");
     }
 
-    // ---------------------------
-    // Init
-    // ---------------------------
     $("applyBtn").addEventListener("click", applyFilters);
     $("resetBtn").addEventListener("click", () => {
       $("q").value = "";
@@ -848,12 +833,10 @@
       applyFilters();
     });
 
-    // Optional: auto-filter on Enter in keyword box
     $("q").addEventListener("keydown", (e) => {
       if (e.key === "Enter"){ e.preventDefault(); applyFilters(); }
     });
 
-    // Modal close actions
     $("closeModalBtn").addEventListener("click", closeModal);
     $("modalBackdrop").addEventListener("click", (e) => {
       if (e.target === $("modalBackdrop")) closeModal();
@@ -862,13 +845,11 @@
       if (e.key === "Escape") closeModal();
     });
 
-    // Initial render
     renderFeatured();
     renderResults(SCHOLARSHIPS.slice().sort((a,b) => new Date(a.deadline) - new Date(b.deadline)));
-    applyFilters(); // ensures chips/count are consistent
+    applyFilters();
   </script>
 
-  <!-- Flowise AI Chatbot Embed (kept consistent with your site) -->
   <script type="module">
     import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
     Chatbot.init({
@@ -914,4 +895,3 @@
   </script>
 </body>
 </html>
-
