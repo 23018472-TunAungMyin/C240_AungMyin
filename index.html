@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="description" content="ScholarMatch scholarship search engine. Browse, filter, and compare scholarships easily." />
+  <meta name="keywords" content="scholarship finder, scholarship search, filters, deadlines, funding" />
+  <title>ScholarMatch — Scholarship Search Engine</title>
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Your existing stylesheet (same as your main site) -->
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Page-specific, minimal CSS to match your layout/colors -->
+  <style>
+    :root{
+      --primary: #2563EB;
+      --neutral-900:#0F172A;
+      --neutral-700:#334155;
+      --neutral-500:#64748B;
+      --neutral-200:#E2E8F0;
+      --neutral-100:#F1F5F9;
+      --white:#ffffff;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+      --shadow-soft: 0 6px 20px rgba(15,23,42,0.06);
+      --font: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+
+    body{font-family: var(--font); color: var(--neutral-900); background: #fff;}
+    .container{max-width: 1100px; margin: 0 auto; padding: 0 20px;}
+
+    /* Header (compatible with your classes) */
+    .header{position: sticky; top: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--neutral-200); z-index: 50;}
+    .header-content{display:flex; align-items:center; justify-content:space-between; padding: 14px 0;}
+    .logo{display:flex; align-items:center; gap: 10px; text-decoration:none;}
+    .logo-icon{width:34px; height:34px;}
+    .logo-text{font-size: 18px; margin:0; color: var(--neutral-900); font-weight: 700;}
+    .nav-list{display:flex; gap: 18px; list-style:none; margin:0; padding:0;}
+    .nav-link{text-decoration:none; color: var(--neutral-700); font-weight: 500;}
+    .nav-link:hover{color: var(--primary);}
+
+    /* Hero */
+    .hero{padding: 56px 0; background: linear-gradient(180deg, #F8FAFF 0%, #ffffff 75%);}
+    .hero-content{max-width: 760px;}
+    .hero-title{font-size: 40px; line-height:1.1; margin:0 0 12px;}
+    .hero-subtitle{color: var(--neutral-700); font-size: 16px; margin:0 0 22px;}
+    .cta-row{display:flex; gap: 12px; flex-wrap: wrap;}
+    .cta-button, .secondary-button{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 12px 16px; border-radius: 12px; font-weight: 600; text-decoration:none;
+      border: 1px solid transparent;
+    }
+    .cta-button{background: var(--primary); color: var(--white); box-shadow: var(--shadow-soft);}
+    .cta-button:hover{filter: brightness(0.95);}
+    .secondary-button{background: var(--white); border-color: var(--neutral-200); color: var(--neutral-900);}
+    .secondary-button:hover{border-color: var(--primary); color: var(--primary);}
+
+    /* Sections */
+    .section{padding: 34px 0 56px;}
+    .section-title{font-size: 26px; margin:0 0 8px;}
+    .section-subtitle{margin:0 0 18px; color: var(--neutral-500);}
+
+    /* Search Layout */
+    .search-grid{display:grid; grid-template-columns: 360px 1fr; gap: 18px; align-items:start;}
+    @media (max-width: 980px){ .search-grid{grid-template-columns: 1fr;} }
+
+    .card{
+      background: var(--white);
+      border: 1px solid var(--neutral-200);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .card-pad{padding: 16px;}
+    .filters-header{display:flex; align-items:center; justify-content:space-between; gap: 12px; padding: 16px; border-bottom: 1px solid var(--neutral-200);}
+    .filters-header h3{margin:0; font-size: 16px;}
+    .pill{
+      font-size: 12px; color: var(--neutral-700);
+      background: var(--neutral-100);
+      border: 1px solid var(--neutral-200);
+      padding: 4px 10px; border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .form-group{margin-bottom: 14px;}
+    .form-label{display:block; font-weight: 600; font-size: 13px; margin-bottom: 6px;}
+    .help-text{display:block; font-size: 12px; color: var(--neutral-500); margin-top: 6px;}
+    .form-input, .form-select{
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--neutral-200);
+      outline: none;
+      font-size: 14px;
+      background: #fff;
+    }
+    .form-input:focus, .form-select:focus{border-color: var(--primary); box-shadow: 0 0 0 4px rgba(37,99,235,0.12);}
+
+    .row{display:flex; gap: 10px;}
+    .row > *{flex:1;}
+
+    .btn{
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-primary{background: var(--primary); color: #fff;}
+    .btn-primary:hover{filter: brightness(0.95);}
+    .btn-ghost{background: #fff; border-color: var(--neutral-200); color: var(--neutral-900);}
+    .btn-ghost:hover{border-color: var(--primary); color: var(--primary);}
+
+    /* Results */
+    .results-header{
+      display:flex; justify-content:space-between; align-items:flex-start;
+      gap: 12px; padding: 16px; border-bottom: 1px solid var(--neutral-200);
+    }
+    .results-meta{display:flex; flex-direction:column; gap: 4px;}
+    .results-count{font-weight: 700;}
+    .results-hint{color: var(--neutral-500); font-size: 12px; margin:0;}
+    .chips{display:flex; gap: 8px; flex-wrap: wrap; justify-content:flex-end;}
+    .chip{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--neutral-200);
+      background: var(--neutral-100);
+      color: var(--neutral-700);
+    }
+
+    .list{padding: 16px; display:grid; gap: 12px;}
+    .sch-card{padding: 14px; border-radius: 14px; border: 1px solid var(--neutral-200); background: #fff;}
+    .sch-top{display:flex; justify-content:space-between; gap: 12px; align-items:flex-start;}
+    .sch-title{margin:0; font-size: 16px;}
+    .sch-provider{margin:4px 0 0; color: var(--neutral-500); font-size: 13px;}
+    .badge{
+      font-size: 12px; font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(37,99,235,0.10);
+      color: var(--primary);
+      border: 1px solid rgba(37,99,235,0.18);
+      white-space: nowrap;
+    }
+    .sch-body{margin-top: 10px; color: var(--neutral-700); font-size: 13px; line-height:1.45;}
+    .sch-tags{display:flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;}
+    .tag{font-size: 12px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--neutral-200); background: #fff; color: var(--neutral-700);}
+    .sch-actions{display:flex; gap: 10px; margin-top: 12px; flex-wrap: wrap;}
+    .link-btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 10px 12px; border-radius: 12px;
+      border: 1px solid var(--neutral-200);
+      background: #fff; color: var(--neutral-900); text-decoration:none; font-weight: 700; font-size: 13px;
+      cursor: pointer;
+    }
+    .link-btn:hover{border-color: var(--primary); color: var(--primary);}
+    .link-btn.primary{background: var(--primary); color: #fff; border-color: var(--primary);}
+    .link-btn.primary:hover{filter: brightness(0.95);}
+
+    /* Modal */
+    .modal-backdrop{
+      position: fixed; inset: 0;
+      background: rgba(2,6,23,0.55);
+      display:none; align-items:center; justify-content:center;
+      padding: 18px; z-index: 100;
+    }
+    .modal{
+      width: min(760px, 100%);
+      background: #fff; border-radius: 18px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      border: 1px solid var(--neutral-200);
+      overflow: hidden;
+    }
+    .modal-head{display:flex; justify-content:space-between; align-items:flex-start; gap: 12px; padding: 16px; border-bottom: 1px solid var(--neutral-200);}
+    .modal-title{margin:0; font-size: 18px;}
+    .modal-sub{margin: 6px 0 0; color: var(--neutral-500); font-size: 13px;}
+    .modal-body{padding: 16px; color: var(--neutral-700); font-size: 14px; line-height:1.55;}
+    .modal-grid{display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;}
+    @media (max-width: 720px){ .modal-grid{grid-template-columns: 1fr;} }
+    .kv{border: 1px solid var(--neutral-200); border-radius: 14px; padding: 12px; background: #fff;}
+    .k{font-weight: 700; font-size: 12px; color: var(--neutral-500); text-transform: uppercase; letter-spacing: .04em;}
+    .v{margin-top: 6px; font-weight: 600; color: var(--neutral-900);}
+
+    .modal-foot{display:flex; gap: 10px; padding: 16px; border-top: 1px solid var(--neutral-200); justify-content:flex-end; flex-wrap: wrap;}
+    .icon-btn{
+      border: 1px solid var(--neutral-200);
+      background: #fff; border-radius: 12px;
+      padding: 10px 12px;
+      font-weight: 800; cursor:pointer;
+    }
+    .icon-btn:hover{border-color: var(--primary); color: var(--primary);}
+
+    /* Footer */
+    .footer{border-top: 1px solid var(--neutral-200); padding: 18px 0; color: var(--neutral-500); font-size: 13px;}
+    .footer-text{margin:0;}
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header" role="banner">
+    <div class="container">
+      <div class="header-content">
+        <a href="home.html" class="logo" aria-label="ScholarMatch Home">
+          <img src="images/logo.png" alt="ScholarMatch Logo" class="logo-icon" />
+          <h1 class="logo-text">ScholarMatch</h1>
+        </a>
+        <nav class="nav" role="navigation" aria-label="Main navigation">
+          <ul class="nav-list">
+            <li><a href="#search" class="nav-link">Search</a></li>
+            <li><a href="#featured" class="nav-link">Featured</a></li>
+            <li><a href="#tips" class="nav-link">Tips</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="main-content" role="main">
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <h2 class="hero-title">Search Scholarships in One Place</h2>
+          <p class="hero-subtitle">
+            Browse scholarships by field, level, award amount, and deadlines. Use filters to narrow down
+            to what matters most—fast.
+          </p>
+          <div class="cta-row">
+            <a href="#search" class="cta-button">Start Searching</a>
+            <a href="#featured" class="secondary-button">View Featured Scholarships</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="section" id="search">
+      <div class="container">
+        <h2 class="section-title">Scholarship Search Engine</h2>
+        <p class="section-subtitle">Use the filters to narrow results. Click “View Details” for full information.</p>
+
+        <div class="search-grid">
+          <!-- Filters -->
+          <aside class="card" aria-label="Scholarship filters">
+            <div class="filters-header">
+              <h3>Filters</h3>
+              <span class="pill" id="activeFilterCount">0 active</span>
+            </div>
+
+            <div class="card-pad">
+              <div class="form-group">
+                <label for="q" class="form-label">Keyword</label>
+                <input id="q" class="form-input" type="text" placeholder="e.g., engineering, leadership, overseas" />
+                <span class="help-text">Search by scholarship name, provider, or description keywords.</span>
+              </div>
+
+              <div class="row">
+                <div class="form-group">
+                  <label for="level" class="form-label">Study Level</label>
+                  <select id="level" class="form-select">
+                    <option value="">All</option>
+                    <option value="Polytechnic">Polytechnic</option>
+                    <option value="University">University</option>
+                    <option value="Secondary/JC">Secondary/JC</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="field" class="form-label">Field</label>
+                  <select id="field" class="form-select">
+                    <option value="">All</option>
+                    <option value="STEM">STEM</option>
+                    <option value="Business">Business</option>
+                    <option value="Arts & Media">Arts & Media</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Any">Any</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group">
+                  <label for="citizenship" class="form-label">Eligibility</label>
+                  <select id="citizenship" class="form-select">
+                    <option value="">All</option>
+                    <option value="Singapore Citizen">Singapore Citizen</option>
+                    <option value="Singapore PR">Singapore PR</option>
+                    <option value="International">International</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="type" class="form-label">Type</label>
+                  <select id="type" class="form-select">
+                    <option value="">All</option>
+                    <option value="Merit">Merit</option>
+                    <option value="Need-based">Need-based</option>
+                    <option value="Leadership">Leadership</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Bonded">Bonded</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group">
+                  <label for="minAward" class="form-label">Min Award (SGD)</label>
+                  <input id="minAward" class="form-input" type="number" min="0" step="500" placeholder="e.g., 5000" />
+                </div>
+
+                <div class="form-group">
+                  <label for="deadline" class="form-label">Deadline (by)</label>
+                  <input id="deadline" class="form-input" type="date" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="sort" class="form-label">Sort by</label>
+                <select id="sort" class="form-select">
+                  <option value="relevance">Relevance</option>
+                  <option value="deadline_asc">Deadline (Soonest)</option>
+                  <option value="award_desc">Award (Highest)</option>
+                  <option value="title_asc">Title (A–Z)</option>
+                </select>
+              </div>
+
+              <div class="row">
+                <button class="btn btn-primary" id="applyBtn" type="button">Apply Filters</button>
+                <button class="btn btn-ghost" id="resetBtn" type="button">Reset</button>
+              </div>
+
+              <span class="help-text" style="margin-top:10px;">
+                Tip: Keep filters broad first, then narrow by deadline and award.
+              </span>
+            </div>
+          </aside>
+
+          <!-- Results -->
+          <section class="card" aria-label="Scholarship results">
+            <div class="results-header">
+              <div class="results-meta">
+                <div class="results-count" id="resultsCount">0 scholarships</div>
+                <p class="results-hint" id="resultsHint">Use filters on the left to refine results.</p>
+              </div>
+              <div class="chips" id="activeChips" aria-label="Active filters"></div>
+            </div>
+
+            <div class="list" id="resultsList">
+              <!-- dynamically inserted -->
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Section -->
+    <section class="section" id="featured">
+      <div class="container">
+        <h2 class="section-title">Featured Scholarships</h2>
+        <p class="section-subtitle">A small curated set (example). Your team can replace these with real entries.</p>
+
+        <div class="card">
+          <div class="list" id="featuredList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tips -->
+    <section class="section" id="tips">
+      <div class="container">
+        <h2 class="section-title">Quick Tips</h2>
+        <p class="section-subtitle">Small improvements that increase your chances.</p>
+
+        <div class="card">
+          <div class="card-pad" style="display:grid; gap:12px;">
+            <div class="sch-card">
+              <h3 class="sch-title">Apply early</h3>
+              <p class="sch-body">Many scholarships evaluate on a rolling basis. Early applicants often have an advantage.</p>
+            </div>
+            <div class="sch-card">
+              <h3 class="sch-title">Tailor your essay</h3>
+              <p class="sch-body">Mirror the scholarship’s values (leadership, service, innovation) with specific examples.</p>
+            </div>
+            <div class="sch-card">
+              <h3 class="sch-title">Request referrals early</h3>
+              <p class="sch-body">Referees need time. Provide them a summary of your achievements and goals.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <p class="footer-text">&copy; 2026 ScholarMatch. Scholarship Search Engine.</p>
+    </div>
+  </footer>
+
+  <!-- Details Modal -->
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <h3 class="modal-title" id="modalTitle">Scholarship Title</h3>
+          <p class="modal-sub" id="modalSub">Provider • Level • Field</p>
+        </div>
+        <button class="icon-btn" id="closeModalBtn" aria-label="Close details">✕</button>
+      </div>
+
+      <div class="modal-body" id="modalBody">
+        <!-- inserted -->
+      </div>
+
+      <div class="modal-foot">
+        <a class="link-btn" id="modalLink" href="#" target="_blank" rel="noopener">Open Official Page</a>
+        <button class="link-btn primary" id="copyBtn" type="button">Copy Summary</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript (inline for simplicity) -->
+  <script>
+    // ---------------------------
+    // Sample dataset (replace with your own JSON later)
+    // ---------------------------
+    const SCHOLARSHIPS = [
+      {
+        id: "sm-001",
+        title: "STEM Excellence Scholarship",
+        provider: "FutureTech Foundation",
+        level: "University",
+        field: "STEM",
+        type: "Merit",
+        eligibility: ["Singapore Citizen", "Singapore PR"],
+        award: 12000,
+        deadline: "2026-04-15",
+        description: "Supports high-performing STEM students with strong academic results and project experience.",
+        requirements: ["GPA >= 3.5", "Personal statement", "Transcript", "Interview"],
+        link: "https://example.com/stem-excellence"
+      },
+      {
+        id: "sm-002",
+        title: "Community Leadership Award",
+        provider: "Civic Impact SG",
+        level: "Polytechnic",
+        field: "Any",
+        type: "Leadership",
+        eligibility: ["Singapore Citizen"],
+        award: 6000,
+        deadline: "2026-03-10",
+        description: "For students who have demonstrated leadership and measurable community impact.",
+        requirements: ["CCA/leadership portfolio", "Referee letter", "Interview"],
+        link: "https://example.com/community-leadership"
+      },
+      {
+        id: "sm-003",
+        title: "Need-Based Education Grant",
+        provider: "BrightPath Trust",
+        level: "University",
+        field: "Any",
+        type: "Need-based",
+        eligibility: ["Singapore Citizen", "Singapore PR"],
+        award: 8000,
+        deadline: "2026-02-28",
+        description: "Assists students from lower-income households with tuition and essential living expenses.",
+        requirements: ["Household income documents", "Transcript", "Short essay"],
+        link: "https://example.com/need-based-grant"
+      },
+      {
+        id: "sm-004",
+        title: "Business Innovators Scholarship",
+        provider: "Enterprise Catalyst",
+        level: "University",
+        field: "Business",
+        type: "Merit",
+        eligibility: ["Singapore Citizen", "International"],
+        award: 15000,
+        deadline: "2026-05-01",
+        description: "Supports business students with entrepreneurship track record, competitions, or startup ideas.",
+        requirements: ["Pitch deck (optional)", "Essay", "Transcript", "Interview"],
+        link: "https://example.com/business-innovators"
+      },
+      {
+        id: "sm-005",
+        title: "Arts & Media Talent Scholarship",
+        provider: "Creative Futures Council",
+        level: "Polytechnic",
+        field: "Arts & Media",
+        type: "Merit",
+        eligibility: ["Singapore Citizen", "Singapore PR", "International"],
+        award: 7000,
+        deadline: "2026-03-25",
+        description: "For applicants with strong creative portfolio and commitment to media/arts development.",
+        requirements: ["Portfolio", "Personal statement", "Interview"],
+        link: "https://example.com/arts-media-talent"
+      },
+      {
+        id: "sm-006",
+        title: "National Sports Scholarship",
+        provider: "SportSG Partners",
+        level: "Secondary/JC",
+        field: "Any",
+        type: "Sports",
+        eligibility: ["Singapore Citizen"],
+        award: 5000,
+        deadline: "2026-02-20",
+        description: "Recognizes competitive student-athletes with proven performance and discipline.",
+        requirements: ["Sports achievements", "Coach referral", "Medical declaration"],
+        link: "https://example.com/sports-scholarship"
+      },
+      {
+        id: "sm-007",
+        title: "Healthcare Service Scholarship (Bonded)",
+        provider: "HealthServe Network",
+        level: "University",
+        field: "Healthcare",
+        type: "Bonded",
+        eligibility: ["Singapore Citizen", "Singapore PR"],
+        award: 20000,
+        deadline: "2026-04-05",
+        description: "Supports healthcare undergraduates with a service bond upon graduation.",
+        requirements: ["Interview", "Medical screening", "Service bond agreement"],
+        link: "https://example.com/healthcare-bonded"
+      },
+      {
+        id: "sm-008",
+        title: "International Student Achievement Scholarship",
+        provider: "Global Campus Fund",
+        level: "University",
+        field: "STEM",
+        type: "Merit",
+        eligibility: ["International"],
+        award: 10000,
+        deadline: "2026-03-30",
+        description: "For international students with excellent academic record and strong recommendations.",
+        requirements: ["Transcript", "Referee letters", "Essay"],
+        link: "https://example.com/international-achievement"
+      }
+    ];
+
+    // ---------------------------
+    // Helpers
+    // ---------------------------
+    const $ = (id) => document.getElementById(id);
+
+    function formatMoney(n){
+      try { return new Intl.NumberFormat("en-SG", { style:"currency", currency:"SGD", maximumFractionDigits:0 }).format(n); }
+      catch { return "SGD " + n; }
+    }
+
+    function daysUntil(dateStr){
+      const d = new Date(dateStr + "T00:00:00");
+      const now = new Date();
+      const diff = Math.ceil((d - now) / (1000 * 60 * 60 * 24));
+      return diff;
+    }
+
+    function buildActiveChips(filters){
+      const chips = [];
+      if (filters.q) chips.push({ key:"q", label: `Keyword: ${filters.q}` });
+      if (filters.level) chips.push({ key:"level", label: `Level: ${filters.level}` });
+      if (filters.field) chips.push({ key:"field", label: `Field: ${filters.field}` });
+      if (filters.citizenship) chips.push({ key:"citizenship", label: `Eligibility: ${filters.citizenship}` });
+      if (filters.type) chips.push({ key:"type", label: `Type: ${filters.type}` });
+      if (filters.minAward) chips.push({ key:"minAward", label: `Min Award: ${formatMoney(filters.minAward)}` });
+      if (filters.deadline) chips.push({ key:"deadline", label: `Deadline by: ${filters.deadline}` });
+      return chips;
+    }
+
+    function computeRelevanceScore(s, q){
+      if (!q) return 0;
+      const hay = (s.title + " " + s.provider + " " + s.description).toLowerCase();
+      const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+      let score = 0;
+      for (const t of terms){
+        if (s.title.toLowerCase().includes(t)) score += 3;
+        if (s.provider.toLowerCase().includes(t)) score += 2;
+        if (hay.includes(t)) score += 1;
+      }
+      return score;
+    }
+
+    function applyFilters(){
+      const filters = {
+        q: $("q").value.trim(),
+        level: $("level").value,
+        field: $("field").value,
+        citizenship: $("citizenship").value,
+        type: $("type").value,
+        minAward: Number($("minAward").value || 0),
+        deadline: $("deadline").value,
+        sort: $("sort").value
+      };
+
+      // Active filter count (exclude sort)
+      const activeCount =
+        (filters.q ? 1 : 0) +
+        (filters.level ? 1 : 0) +
+        (filters.field ? 1 : 0) +
+        (filters.citizenship ? 1 : 0) +
+        (filters.type ? 1 : 0) +
+        (filters.minAward ? 1 : 0) +
+        (filters.deadline ? 1 : 0);
+
+      $("activeFilterCount").textContent = `${activeCount} active`;
+
+      // Active chips
+      const chips = buildActiveChips(filters);
+      const chipWrap = $("activeChips");
+      chipWrap.innerHTML = "";
+      chips.forEach(c => {
+        const el = document.createElement("span");
+        el.className = "chip";
+        el.textContent = c.label;
+        chipWrap.appendChild(el);
+      });
+
+      // Filter dataset
+      let out = SCHOLARSHIPS.slice();
+
+      if (filters.q){
+        const q = filters.q.toLowerCase();
+        out = out.filter(s =>
+          (s.title + " " + s.provider + " " + s.description).toLowerCase().includes(q)
+        );
+      }
+      if (filters.level) out = out.filter(s => s.level === filters.level);
+      if (filters.field) out = out.filter(s => s.field === filters.field);
+      if (filters.type) out = out.filter(s => s.type === filters.type);
+      if (filters.citizenship) out = out.filter(s => s.eligibility.includes(filters.citizenship));
+      if (filters.minAward) out = out.filter(s => s.award >= filters.minAward);
+      if (filters.deadline){
+        const max = new Date(filters.deadline + "T23:59:59");
+        out = out.filter(s => new Date(s.deadline + "T00:00:00") <= max);
+      }
+
+      // Sort
+      if (filters.sort === "title_asc"){
+        out.sort((a,b) => a.title.localeCompare(b.title));
+      } else if (filters.sort === "award_desc"){
+        out.sort((a,b) => b.award - a.award);
+      } else if (filters.sort === "deadline_asc"){
+        out.sort((a,b) => new Date(a.deadline) - new Date(b.deadline));
+      } else {
+        // relevance
+        out.sort((a,b) => computeRelevanceScore(b, filters.q) - computeRelevanceScore(a, filters.q));
+      }
+
+      renderResults(out);
+    }
+
+    function renderResults(list){
+      $("resultsCount").textContent = `${list.length} scholarships`;
+      $("resultsHint").textContent = list.length
+        ? "Showing matches based on your filters."
+        : "No matches found. Try removing some filters or broadening your keyword.";
+
+      const root = $("resultsList");
+      root.innerHTML = "";
+
+      list.forEach(s => {
+        const due = daysUntil(s.deadline);
+        const urgencyLabel = due < 0 ? "Closed" : (due === 0 ? "Due Today" : `Due in ${due} days`);
+
+        const el = document.createElement("article");
+        el.className = "sch-card";
+
+        el.innerHTML = `
+          <div class="sch-top">
+            <div>
+              <h3 class="sch-title">${escapeHtml(s.title)}</h3>
+              <p class="sch-provider">${escapeHtml(s.provider)} • ${escapeHtml(s.level)} • ${escapeHtml(s.field)}</p>
+            </div>
+            <span class="badge">${escapeHtml(urgencyLabel)}</span>
+          </div>
+
+          <p class="sch-body">${escapeHtml(s.description)}</p>
+
+          <div class="sch-tags" aria-label="Scholarship tags">
+            <span class="tag">Type: ${escapeHtml(s.type)}</span>
+            <span class="tag">Award: ${escapeHtml(formatMoney(s.award))}</span>
+            <span class="tag">Deadline: ${escapeHtml(s.deadline)}</span>
+          </div>
+
+          <div class="sch-actions">
+            <button class="link-btn" type="button" data-action="details" data-id="${escapeHtml(s.id)}">View Details</button>
+            <a class="link-btn primary" href="${escapeAttr(s.link)}" target="_blank" rel="noopener">Official Page</a>
+          </div>
+        `;
+
+        root.appendChild(el);
+      });
+
+      // Attach details handlers
+      root.querySelectorAll('[data-action="details"]').forEach(btn => {
+        btn.addEventListener("click", () => openModal(btn.dataset.id));
+      });
+    }
+
+    function renderFeatured(){
+      const featured = SCHOLARSHIPS.slice()
+        .sort((a,b) => b.award - a.award)
+        .slice(0, 3);
+
+      const root = $("featuredList");
+      root.innerHTML = "";
+
+      featured.forEach(s => {
+        const el = document.createElement("article");
+        el.className = "sch-card";
+        el.innerHTML = `
+          <div class="sch-top">
+            <div>
+              <h3 class="sch-title">${escapeHtml(s.title)}</h3>
+              <p class="sch-provider">${escapeHtml(s.provider)} • ${escapeHtml(s.level)} • ${escapeHtml(s.field)}</p>
+            </div>
+            <span class="badge">${escapeHtml(formatMoney(s.award))}</span>
+          </div>
+          <p class="sch-body">${escapeHtml(s.description)}</p>
+          <div class="sch-actions">
+            <button class="link-btn" type="button" data-action="details" data-id="${escapeHtml(s.id)}">View Details</button>
+            <a class="link-btn primary" href="${escapeAttr(s.link)}" target="_blank" rel="noopener">Official Page</a>
+          </div>
+        `;
+        root.appendChild(el);
+      });
+
+      root.querySelectorAll('[data-action="details"]').forEach(btn => {
+        btn.addEventListener("click", () => openModal(btn.dataset.id));
+      });
+    }
+
+    function openModal(id){
+      const s = SCHOLARSHIPS.find(x => x.id === id);
+      if (!s) return;
+
+      $("modalTitle").textContent = s.title;
+      $("modalSub").textContent = `${s.provider} • ${s.level} • ${s.field}`;
+      $("modalLink").href = s.link;
+
+      const due = daysUntil(s.deadline);
+      const status = due < 0 ? "Closed" : (due === 0 ? "Due Today" : `Due in ${due} day(s)`);
+
+      $("modalBody").innerHTML = `
+        <p style="margin-top:0;">${escapeHtml(s.description)}</p>
+
+        <div class="modal-grid">
+          <div class="kv">
+            <div class="k">Award Amount</div>
+            <div class="v">${escapeHtml(formatMoney(s.award))}</div>
+          </div>
+          <div class="kv">
+            <div class="k">Deadline</div>
+            <div class="v">${escapeHtml(s.deadline)} (${escapeHtml(status)})</div>
+          </div>
+          <div class="kv">
+            <div class="k">Type</div>
+            <div class="v">${escapeHtml(s.type)}</div>
+          </div>
+          <div class="kv">
+            <div class="k">Eligible Applicants</div>
+            <div class="v">${escapeHtml(s.eligibility.join(", "))}</div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px;">
+          <div class="k" style="margin-bottom:8px;">Typical Requirements</div>
+          <ul style="margin:0; padding-left:18px; color: var(--neutral-700);">
+            ${s.requirements.map(r => `<li>${escapeHtml(r)}</li>`).join("")}
+          </ul>
+        </div>
+      `;
+
+      const summary = [
+        `Scholarship: ${s.title}`,
+        `Provider: ${s.provider}`,
+        `Level/Field: ${s.level} / ${s.field}`,
+        `Type: ${s.type}`,
+        `Award: ${formatMoney(s.award)}`,
+        `Deadline: ${s.deadline}`,
+        `Eligibility: ${s.eligibility.join(", ")}`,
+        `Requirements: ${s.requirements.join("; ")}`,
+        `Link: ${s.link}`
+      ].join("\n");
+
+      $("copyBtn").onclick = async () => {
+        try{
+          await navigator.clipboard.writeText(summary);
+          $("copyBtn").textContent = "Copied";
+          setTimeout(() => $("copyBtn").textContent = "Copy Summary", 1200);
+        } catch {
+          alert("Copy failed. Your browser may block clipboard access.");
+        }
+      };
+
+      const backdrop = $("modalBackdrop");
+      backdrop.style.display = "flex";
+      backdrop.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(){
+      const backdrop = $("modalBackdrop");
+      backdrop.style.display = "none";
+      backdrop.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    // Basic HTML escaping for safety (demo quality, but good practice)
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+    function escapeAttr(str){
+      return escapeHtml(str).replaceAll("`","&#096;");
+    }
+
+    // ---------------------------
+    // Init
+    // ---------------------------
+    $("applyBtn").addEventListener("click", applyFilters);
+    $("resetBtn").addEventListener("click", () => {
+      $("q").value = "";
+      $("level").value = "";
+      $("field").value = "";
+      $("citizenship").value = "";
+      $("type").value = "";
+      $("minAward").value = "";
+      $("deadline").value = "";
+      $("sort").value = "relevance";
+      applyFilters();
+    });
+
+    // Optional: auto-filter on Enter in keyword box
+    $("q").addEventListener("keydown", (e) => {
+      if (e.key === "Enter"){ e.preventDefault(); applyFilters(); }
+    });
+
+    // Modal close actions
+    $("closeModalBtn").addEventListener("click", closeModal);
+    $("modalBackdrop").addEventListener("click", (e) => {
+      if (e.target === $("modalBackdrop")) closeModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeModal();
+    });
+
+    // Initial render
+    renderFeatured();
+    renderResults(SCHOLARSHIPS.slice().sort((a,b) => new Date(a.deadline) - new Date(b.deadline)));
+    applyFilters(); // ensures chips/count are consistent
+  </script>
+
+  <!-- Flowise AI Chatbot Embed (kept consistent with your site) -->
+  <script type="module">
+    import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+    Chatbot.init({
+      chatflowid: "6a5712e1-6ff9-48e7-baee-c7b9c64866b4",
+      apiHost: "https://flowise-production-ad0b.up.railway.app",
+      theme: {
+        button: {
+          backgroundColor: "#2563EB",
+          right: 20,
+          bottom: 20,
+          size: "medium",
+          iconColor: "white",
+          customIconSrc: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/google-messages.svg",
+        },
+        chatWindow: {
+          welcomeMessage: "Hi! 👋 I'm your AI Scholarship Assistant. Ask me anything about scholarships, deadlines, or how to apply.",
+          backgroundColor: "#ffffff",
+          height: 600,
+          width: 400,
+          fontSize: 16,
+          poweredByTextColor: "#64748B",
+          botMessage: {
+            backgroundColor: "#F1F5F9",
+            textColor: "#1E293B",
+            showAvatar: true,
+            avatarSrc: "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/parroticon.png",
+          },
+          userMessage: {
+            backgroundColor: "#2563EB",
+            textColor: "#ffffff",
+            showAvatar: true,
+            avatarSrc: "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/usericon.png",
+          },
+          textInput: {
+            placeholder: "Ask about scholarships...",
+            backgroundColor: "#ffffff",
+            textColor: "#1E293B",
+            sendButtonColor: "#2563EB",
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>
