@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <meta name="description" content="ScholarMatch scholarship search engine. Browse, filter, and compare scholarships easily." />
-  <meta name="keywords" content="scholarship finder, scholarship search, filters, deadlines, funding" />
+  <meta name="keywords" content="scholarship finder, scholarship search, filters, funding" />
   <title>ScholarMatch — Scholarship Search Engine</title>
 
   <!-- Preconnect for performance -->
@@ -28,7 +28,6 @@
       --neutral-100:#F1F5F9;
       --white:#ffffff;
       --radius: 16px;
-      --shadow: 0 10px 30px rgba(0,0,0,0.08);
       --shadow-soft: 0 6px 20px rgba(15,23,42,0.06);
       --font: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
     }
@@ -36,7 +35,7 @@
     body{font-family: var(--font); color: var(--neutral-900); background: #fff;}
     .container{max-width: 1100px; margin: 0 auto; padding: 0 20px;}
 
-    /* Header (compatible with your classes) */
+    /* Header */
     .header{position: sticky; top: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--neutral-200); z-index: 50;}
     .header-content{display:flex; align-items:center; justify-content:space-between; padding: 14px 0;}
     .logo{display:flex; align-items:center; gap: 10px; text-decoration:none;}
@@ -207,35 +206,34 @@
 
 <body>
   <!-- Header -->
-<!-- Header (UPDATED NAVBAR to match your provided code) -->
-<header class="header" role="banner">
-  <div class="container">
-    <div class="header-content">
-      <a href="https://raelyn23050595.github.io/ScholarMatch/" class="logo">
-        <img src="./logo.png" alt="ScholarMatch Logo" class="logo-icon" />
-        <h1 class="logo-text">ScholarMatch</h1>
-      </a>
+  <header class="header" role="banner">
+    <div class="container">
+      <div class="header-content">
+        <a href="https://raelyn23050595.github.io/ScholarMatch/" class="logo">
+          <img src="./logo.png" alt="ScholarMatch Logo" class="logo-icon" />
+          <h1 class="logo-text">ScholarMatch</h1>
+        </a>
 
-      <nav class="nav" role="navigation" aria-label="Main navigation">
-        <ul class="nav-list">
-          <li><a href="#home" class="nav-link">Ralph</a></li>
-          <li><a href="https://tohwangxin.github.io/C240_FA/" target="_blank" class="nav-link">WangXin</a></li>
-          <li>
-            <a href="https://raelyn23050595.github.io/ScholarMatch_Raelyn/" target="_blank" class="nav-link">
-              Scholarship Comparison (Raelyn)
-            </a>
-          </li>
-          <li><a href="#about" class="nav-link">Ee Weng</a></li>
-          <li>
-            <a href="https://23018472-tunaungmyin.github.io/C240_AungMyin/" class="nav-link">
-              Search Scholarships (Aung Myin)
-            </a>
-          </li>
-        </ul>
-      </nav>
+        <nav class="nav" role="navigation" aria-label="Main navigation">
+          <ul class="nav-list">
+            <li><a href="#home" class="nav-link">Ralph</a></li>
+            <li><a href="https://tohwangxin.github.io/C240_FA/" target="_blank" class="nav-link">WangXin</a></li>
+            <li>
+              <a href="https://raelyn23050595.github.io/ScholarMatch_Raelyn/" target="_blank" class="nav-link">
+                Scholarship Comparison (Raelyn)
+              </a>
+            </li>
+            <li><a href="#about" class="nav-link">Ee Weng</a></li>
+            <li>
+              <a href="https://23018472-tunaungmyin.github.io/C240_AungMyin/" class="nav-link">
+                Search Scholarships (Aung Myin)
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
   <!-- Main Content -->
   <main id="main-content" role="main">
@@ -245,7 +243,7 @@
         <div class="hero-content">
           <h2 class="hero-title">Search Scholarships in One Place</h2>
           <p class="hero-subtitle">
-            Browse scholarships by field, level, award amount, and deadlines. Use filters to narrow down
+            Browse scholarships by field and eligibility. Use filters to narrow down
             to what matters most—fast.
           </p>
           <div class="cta-row">
@@ -273,35 +271,22 @@
             <div class="card-pad">
               <div class="form-group">
                 <label for="q" class="form-label">Keyword</label>
-                <input id="q" class="form-input" type="text" placeholder="e.g., engineering, leadership, overseas" />
+                <input id="q" class="form-input" type="text" placeholder="e.g., merit, global, leadership" />
                 <span class="help-text">Search by scholarship name, provider, or description keywords.</span>
               </div>
 
-              <div class="row">
-                <div class="form-group">
-                  <label for="level" class="form-label">Study Level</label>
-                  <select id="level" class="form-select">
-                    <option value="">All</option>
-                    <option value="Polytechnic">Polytechnic</option>
-                    <option value="University">University</option>
-                    <option value="Secondary/JC">Secondary/JC</option>
-                  </select>
-                </div>
+              <!-- REMOVED: Study Level -->
 
+              <div class="row">
                 <div class="form-group">
                   <label for="field" class="form-label">Field</label>
                   <select id="field" class="form-select">
                     <option value="">All</option>
-                    <option value="STEM">STEM</option>
-                    <option value="Business">Business</option>
-                    <option value="Arts & Media">Arts & Media</option>
-                    <option value="Healthcare">Healthcare</option>
                     <option value="Any">Any</option>
+                    <option value="Sports">Sports</option>
                   </select>
                 </div>
-              </div>
 
-              <div class="row">
                 <div class="form-group">
                   <label for="citizenship" class="form-label">Eligibility</label>
                   <select id="citizenship" class="form-select">
@@ -311,39 +296,33 @@
                     <option value="International">International</option>
                   </select>
                 </div>
-
-                <div class="form-group">
-                  <label for="type" class="form-label">Type</label>
-                  <select id="type" class="form-select">
-                    <option value="">All</option>
-                    <option value="Merit">Merit</option>
-                    <option value="Need-based">Need-based</option>
-                    <option value="Leadership">Leadership</option>
-                    <option value="Sports">Sports</option>
-                    <option value="Bonded">Bonded</option>
-                  </select>
-                </div>
               </div>
 
-              <div class="row">
-                <div class="form-group">
-                  <label for="minAward" class="form-label">Min Award (SGD)</label>
-                  <input id="minAward" class="form-input" type="number" min="0" step="500" placeholder="e.g., 5000" />
-                </div>
-
-                <div class="form-group">
-                  <label for="deadline" class="form-label">Deadline (by)</label>
-                  <input id="deadline" class="form-input" type="date" />
-                </div>
+              <div class="form-group">
+                <label for="type" class="form-label">Type</label>
+                <select id="type" class="form-select">
+                  <option value="">All</option>
+                  <option value="Merit">Merit</option>
+                  <option value="Sports">Sports</option>
+                </select>
               </div>
+
+              <!-- Kept Min Award input for UI consistency, but these scholarships have benefits that vary by programme.
+                   If you want, tell me and I will remove this too. -->
+              <div class="form-group">
+                <label for="minAward" class="form-label">Min Award (SGD)</label>
+                <input id="minAward" class="form-input" type="number" min="0" step="500" placeholder="Optional (may not apply for all)" />
+                <span class="help-text">Many university scholarships cover tuition/allowances; refer to official pages for exact benefits.</span>
+              </div>
+
+              <!-- REMOVED: Application Deadline filter -->
 
               <div class="form-group">
                 <label for="sort" class="form-label">Sort by</label>
                 <select id="sort" class="form-select">
                   <option value="relevance">Relevance</option>
-                  <option value="deadline_asc">Deadline (Soonest)</option>
-                  <option value="award_desc">Award (Highest)</option>
                   <option value="title_asc">Title (A–Z)</option>
+                  <option value="award_desc">Award (Highest)</option>
                 </select>
               </div>
 
@@ -353,7 +332,7 @@
               </div>
 
               <span class="help-text" style="margin-top:10px;">
-                Tip: Keep filters broad first, then narrow by deadline and award.
+                Tip: Use “Keyword” (e.g., “Global”, “Merit”, “Scholars”) to narrow quickly.
               </span>
             </div>
           </aside>
@@ -380,7 +359,7 @@
     <section class="section" id="featured">
       <div class="container">
         <h2 class="section-title">Featured Scholarships</h2>
-        <p class="section-subtitle">A small curated set (example). Your team can replace these with real entries.</p>
+        <p class="section-subtitle">A curated set based on the scholarships you listed.</p>
 
         <div class="card">
           <div class="list" id="featuredList"></div>
@@ -398,15 +377,15 @@
           <div class="card-pad" style="display:grid; gap:12px;">
             <div class="sch-card">
               <h3 class="sch-title">Apply early</h3>
-              <p class="sch-body">Many scholarships evaluate on a rolling basis. Early applicants often have an advantage.</p>
+              <p class="sch-body">University scholarships can have specific windows. Submit applications as soon as your admission application allows.</p>
             </div>
             <div class="sch-card">
-              <h3 class="sch-title">Tailor your essay</h3>
-              <p class="sch-body">Mirror the scholarship’s values (leadership, service, innovation) with specific examples.</p>
+              <h3 class="sch-title">Show leadership and impact</h3>
+              <p class="sch-body">Use specific outcomes (metrics, roles, competitions, service) to demonstrate your contributions.</p>
             </div>
             <div class="sch-card">
-              <h3 class="sch-title">Request referrals early</h3>
-              <p class="sch-body">Referees need time. Provide them a summary of your achievements and goals.</p>
+              <h3 class="sch-title">Prepare referees</h3>
+              <p class="sch-body">Give referees your CV and a shortlist of achievements so they can write stronger recommendations.</p>
             </div>
           </div>
         </div>
@@ -427,7 +406,7 @@
       <div class="modal-head">
         <div>
           <h3 class="modal-title" id="modalTitle">Scholarship Title</h3>
-          <p class="modal-sub" id="modalSub">Provider • Level • Field</p>
+          <p class="modal-sub" id="modalSub">Provider • Field</p>
         </div>
         <button class="icon-btn" id="closeModalBtn" aria-label="Close details">✕</button>
       </div>
@@ -446,143 +425,142 @@
   <!-- JavaScript (inline for simplicity) -->
   <script>
     const SCHOLARSHIPS = [
+      // =========================
+      // NUS
+      // =========================
       {
-        id: "sm-001",
-        title: "STEM Excellence Scholarship",
-        provider: "FutureTech Foundation",
-        level: "University",
-        field: "STEM",
-        type: "Merit",
-        eligibility: ["Singapore Citizen", "Singapore PR"],
-        award: 12000,
-        deadline: "2026-04-15",
-        description: "Supports high-performing STEM students with strong academic results and project experience.",
-        requirements: ["GPA >= 3.5", "Personal statement", "Transcript", "Interview"],
-        link: "https://example.com/stem-excellence"
-      },
-      {
-        id: "sm-002",
-        title: "Community Leadership Award",
-        provider: "Civic Impact SG",
-        level: "Polytechnic",
+        id: "nus-gms",
+        title: "NUS Global Merit Scholarship",
+        provider: "National University of Singapore (NUS)",
         field: "Any",
-        type: "Leadership",
+        type: "Merit",
         eligibility: ["Singapore Citizen"],
-        award: 6000,
-        deadline: "2026-03-10",
-        description: "For students who have demonstrated leadership and measurable community impact.",
-        requirements: ["CCA/leadership portfolio", "Referee letter", "Interview"],
-        link: "https://example.com/community-leadership"
+        award: 0,
+        description: "NUS entrance scholarship for outstanding freshmen; benefits vary by programme and official terms.",
+        requirements: ["Admission application", "Scholarship application", "Interview (if shortlisted)"],
+        link: "https://www.nus.edu.sg/oam/scholarships/scholarships-for-freshmen-singapore-citizens/nus-global-merit-scholarship"
       },
       {
-        id: "sm-003",
-        title: "Need-Based Education Grant",
-        provider: "BrightPath Trust",
-        level: "University",
+        id: "nus-ms",
+        title: "NUS Merit Scholarship",
+        provider: "National University of Singapore (NUS)",
         field: "Any",
-        type: "Need-based",
-        eligibility: ["Singapore Citizen", "Singapore PR"],
-        award: 8000,
-        deadline: "2026-02-28",
-        description: "Assists students from lower-income households with tuition and essential living expenses.",
-        requirements: ["Household income documents", "Transcript", "Short essay"],
-        link: "https://example.com/need-based-grant"
-      },
-      {
-        id: "sm-004",
-        title: "Business Innovators Scholarship",
-        provider: "Enterprise Catalyst",
-        level: "University",
-        field: "Business",
         type: "Merit",
-        eligibility: ["Singapore Citizen", "International"],
-        award: 15000,
-        deadline: "2026-05-01",
-        description: "Supports business students with entrepreneurship track record, competitions, or startup ideas.",
-        requirements: ["Pitch deck (optional)", "Essay", "Transcript", "Interview"],
-        link: "https://example.com/business-innovators"
+        eligibility: ["Singapore Citizen"],
+        award: 0,
+        description: "NUS entrance scholarship recognising academic excellence, leadership, and strong co-curricular record.",
+        requirements: ["Admission application", "Scholarship application", "Interview (if shortlisted)"],
+        link: "https://nus.edu.sg/oam/scholarships/scholarships-for-freshmen-singapore-citizens/nus-merit-scholarship"
       },
       {
-        id: "sm-005",
-        title: "Arts & Media Talent Scholarship",
-        provider: "Creative Futures Council",
-        level: "Polytechnic",
-        field: "Arts & Media",
+        id: "nus-us",
+        title: "NUS Undergraduate Scholarship",
+        provider: "National University of Singapore (NUS)",
+        field: "Any",
+        type: "Merit",
+        eligibility: ["Singapore Citizen"],
+        award: 0,
+        description: "NUS entrance scholarship for high-calibre freshmen; benefits and conditions are detailed on the official page.",
+        requirements: ["Admission application", "Scholarship application", "Interview (if shortlisted)"],
+        link: "https://www.nus.edu.sg/oam/scholarships/scholarships-for-freshmen-singapore-citizens/nus-undergraduate-scholarship"
+      },
+
+      // =========================
+      // NTU
+      // =========================
+      {
+        id: "ntu-nms",
+        title: "Nanyang Merit Scholarship",
+        provider: "Nanyang Technological University (NTU)",
+        field: "Any",
         type: "Merit",
         eligibility: ["Singapore Citizen", "Singapore PR", "International"],
-        award: 7000,
-        deadline: "2026-03-25",
-        description: "For applicants with strong creative portfolio and commitment to media/arts development.",
-        requirements: ["Portfolio", "Personal statement", "Interview"],
-        link: "https://example.com/arts-media-talent"
+        award: 0,
+        description: "NTU scholarship for outstanding freshmen; typically includes tuition and allowances subject to terms.",
+        requirements: ["Admission application", "Scholarship application", "Interview (if shortlisted)"],
+        link: "https://www.ntu.edu.sg/admissions/undergraduate/scholarships/scholarship/Nanyang_Merit_Scholarship"
       },
       {
-        id: "sm-006",
-        title: "National Sports Scholarship",
-        provider: "SportSG Partners",
-        level: "Secondary/JC",
+        id: "ntu-ngs",
+        title: "Nanyang Global Scholarship",
+        provider: "Nanyang Technological University (NTU)",
         field: "Any",
+        type: "Merit",
+        eligibility: ["Singapore Citizen", "Singapore PR", "International"],
+        award: 0,
+        description: "NTU scholarship recognising students with outstanding academic results and strong leadership qualities.",
+        requirements: ["Admission application", "Scholarship application", "Interview (if shortlisted)"],
+        link: "https://www.ntu.edu.sg/admissions/undergraduate/scholarships/scholarship-listings/detail/nanyang-scholarship"
+      },
+      {
+        id: "ntu-ewb",
+        title: "E. W. Barker Scholarship",
+        provider: "Nanyang Technological University (NTU)",
+        field: "Sports",
+        type: "Sports",
+        eligibility: ["Singapore Citizen", "Singapore PR", "International"],
+        award: 0,
+        description: "Scholarship supporting undergraduates in sport-related programmes (e.g., Sport Science & Management), subject to official eligibility and terms.",
+        requirements: ["Programme-specific eligibility", "Scholarship application", "Interview (if shortlisted)"],
+        link: "https://www.ntu.edu.sg/admissions/undergraduate/scholarships/ewbarkerscholarship"
+      },
+
+      // =========================
+      // SMU
+      // =========================
+      {
+        id: "smu-merit",
+        title: "SMU Merit Scholarship Programme",
+        provider: "Singapore Management University (SMU)",
+        field: "Any",
+        type: "Merit",
+        eligibility: ["Singapore Citizen", "Singapore PR", "International"],
+        award: 0,
+        description: "SMU scholarship programme offering a tuition fee waiver and development opportunities, subject to terms.",
+        requirements: ["Admission application", "Scholarship consideration/application", "Interview (if shortlisted)"],
+        link: "https://admissions.smu.edu.sg/financial-matters/financial-aid/smu-merit-scholarship-programme"
+      },
+      {
+        id: "smu-ypx",
+        title: "Yip Pin Xiu Scholarship",
+        provider: "Singapore Management University (SMU)",
+        field: "Sports",
         type: "Sports",
         eligibility: ["Singapore Citizen"],
-        award: 5000,
-        deadline: "2026-02-20",
-        description: "Recognizes competitive student-athletes with proven performance and discipline.",
-        requirements: ["Sports achievements", "Coach referral", "Medical declaration"],
-        link: "https://example.com/sports-scholarship"
+        award: 0,
+        description: "SMU scholarship recognising outstanding athletes with strong leadership potential, subject to official criteria.",
+        requirements: ["Admission application", "Scholarship application/consideration", "Sports achievements documentation"],
+        link: "https://admissions.smu.edu.sg/financial-matters/financial-aid/yip-pin-xiu-scholarship"
       },
       {
-        id: "sm-007",
-        title: "Healthcare Service Scholarship (Bonded)",
-        provider: "HealthServe Network",
-        level: "University",
-        field: "Healthcare",
-        type: "Bonded",
-        eligibility: ["Singapore Citizen", "Singapore PR"],
-        award: 20000,
-        deadline: "2026-04-05",
-        description: "Supports healthcare undergraduates with a service bond upon graduation.",
-        requirements: ["Interview", "Medical screening", "Service bond agreement"],
-        link: "https://example.com/healthcare-bonded"
-      },
-      {
-        id: "sm-008",
-        title: "International Student Achievement Scholarship",
-        provider: "Global Campus Fund",
-        level: "University",
-        field: "STEM",
+        id: "smu-lkcsp",
+        title: "Lee Kong Chian Scholars' Programme",
+        provider: "Singapore Management University (SMU)",
+        field: "Any",
         type: "Merit",
-        eligibility: ["International"],
-        award: 10000,
-        deadline: "2026-03-30",
-        description: "For international students with excellent academic record and strong recommendations.",
-        requirements: ["Transcript", "Referee letters", "Essay"],
-        link: "https://example.com/international-achievement"
+        eligibility: ["Singapore Citizen", "Singapore PR", "International"],
+        award: 0,
+        description: "One of SMU’s most prestigious scholarships; benefits include tuition waiver and enrichment opportunities.",
+        requirements: ["Admission application", "Scholarship application/consideration", "Interview (if shortlisted)"],
+        link: "https://admissions.smu.edu.sg/financial-matters/financial-aid/lee-kong-chian-scholars-programme"
       }
     ];
 
     const $ = (id) => document.getElementById(id);
 
     function formatMoney(n){
+      if (!n || Number(n) === 0) return "See official page";
       try { return new Intl.NumberFormat("en-SG", { style:"currency", currency:"SGD", maximumFractionDigits:0 }).format(n); }
       catch { return "SGD " + n; }
-    }
-
-    function daysUntil(dateStr){
-      const d = new Date(dateStr + "T00:00:00");
-      const now = new Date();
-      const diff = Math.ceil((d - now) / (1000 * 60 * 60 * 24));
-      return diff;
     }
 
     function buildActiveChips(filters){
       const chips = [];
       if (filters.q) chips.push({ key:"q", label: `Keyword: ${filters.q}` });
-      if (filters.level) chips.push({ key:"level", label: `Level: ${filters.level}` });
       if (filters.field) chips.push({ key:"field", label: `Field: ${filters.field}` });
       if (filters.citizenship) chips.push({ key:"citizenship", label: `Eligibility: ${filters.citizenship}` });
       if (filters.type) chips.push({ key:"type", label: `Type: ${filters.type}` });
       if (filters.minAward) chips.push({ key:"minAward", label: `Min Award: ${formatMoney(filters.minAward)}` });
-      if (filters.deadline) chips.push({ key:"deadline", label: `Deadline by: ${filters.deadline}` });
       return chips;
     }
 
@@ -602,23 +580,19 @@
     function applyFilters(){
       const filters = {
         q: $("q").value.trim(),
-        level: $("level").value,
         field: $("field").value,
         citizenship: $("citizenship").value,
         type: $("type").value,
         minAward: Number($("minAward").value || 0),
-        deadline: $("deadline").value,
         sort: $("sort").value
       };
 
       const activeCount =
         (filters.q ? 1 : 0) +
-        (filters.level ? 1 : 0) +
         (filters.field ? 1 : 0) +
         (filters.citizenship ? 1 : 0) +
         (filters.type ? 1 : 0) +
-        (filters.minAward ? 1 : 0) +
-        (filters.deadline ? 1 : 0);
+        (filters.minAward ? 1 : 0);
 
       $("activeFilterCount").textContent = `${activeCount} active`;
 
@@ -640,22 +614,17 @@
           (s.title + " " + s.provider + " " + s.description).toLowerCase().includes(q)
         );
       }
-      if (filters.level) out = out.filter(s => s.level === filters.level);
       if (filters.field) out = out.filter(s => s.field === filters.field);
       if (filters.type) out = out.filter(s => s.type === filters.type);
       if (filters.citizenship) out = out.filter(s => s.eligibility.includes(filters.citizenship));
-      if (filters.minAward) out = out.filter(s => s.award >= filters.minAward);
-      if (filters.deadline){
-        const max = new Date(filters.deadline + "T23:59:59");
-        out = out.filter(s => new Date(s.deadline + "T00:00:00") <= max);
-      }
+
+      // Optional: numeric award filter (note: these scholarships often have non-numeric benefits)
+      if (filters.minAward) out = out.filter(s => (Number(s.award) || 0) >= filters.minAward);
 
       if (filters.sort === "title_asc"){
         out.sort((a,b) => a.title.localeCompare(b.title));
       } else if (filters.sort === "award_desc"){
-        out.sort((a,b) => b.award - a.award);
-      } else if (filters.sort === "deadline_asc"){
-        out.sort((a,b) => new Date(a.deadline) - new Date(b.deadline));
+        out.sort((a,b) => (Number(b.award)||0) - (Number(a.award)||0));
       } else {
         out.sort((a,b) => computeRelevanceScore(b, filters.q) - computeRelevanceScore(a, filters.q));
       }
@@ -673,9 +642,6 @@
       root.innerHTML = "";
 
       list.forEach(s => {
-        const due = daysUntil(s.deadline);
-        const urgencyLabel = due < 0 ? "Closed" : (due === 0 ? "Due Today" : `Due in ${due} days`);
-
         const el = document.createElement("article");
         el.className = "sch-card";
 
@@ -683,17 +649,17 @@
           <div class="sch-top">
             <div>
               <h3 class="sch-title">${escapeHtml(s.title)}</h3>
-              <p class="sch-provider">${escapeHtml(s.provider)} • ${escapeHtml(s.level)} • ${escapeHtml(s.field)}</p>
+              <p class="sch-provider">${escapeHtml(s.provider)} • ${escapeHtml(s.field)}</p>
             </div>
-            <span class="badge">${escapeHtml(urgencyLabel)}</span>
+            <span class="badge">${escapeHtml(s.type)}</span>
           </div>
 
           <p class="sch-body">${escapeHtml(s.description)}</p>
 
           <div class="sch-tags" aria-label="Scholarship tags">
             <span class="tag">Type: ${escapeHtml(s.type)}</span>
+            <span class="tag">Field: ${escapeHtml(s.field)}</span>
             <span class="tag">Award: ${escapeHtml(formatMoney(s.award))}</span>
-            <span class="tag">Deadline: ${escapeHtml(s.deadline)}</span>
           </div>
 
           <div class="sch-actions">
@@ -711,9 +677,9 @@
     }
 
     function renderFeatured(){
-      const featured = SCHOLARSHIPS.slice()
-        .sort((a,b) => b.award - a.award)
-        .slice(0, 3);
+      // Curate featured as a mix across universities (top 3 by prestige keywords / not by award)
+      const featuredIds = ["nus-gms", "ntu-ngs", "smu-lkcsp"];
+      const featured = featuredIds.map(id => SCHOLARSHIPS.find(s => s.id === id)).filter(Boolean);
 
       const root = $("featuredList");
       root.innerHTML = "";
@@ -725,9 +691,9 @@
           <div class="sch-top">
             <div>
               <h3 class="sch-title">${escapeHtml(s.title)}</h3>
-              <p class="sch-provider">${escapeHtml(s.provider)} • ${escapeHtml(s.level)} • ${escapeHtml(s.field)}</p>
+              <p class="sch-provider">${escapeHtml(s.provider)} • ${escapeHtml(s.field)}</p>
             </div>
-            <span class="badge">${escapeHtml(formatMoney(s.award))}</span>
+            <span class="badge">${escapeHtml(s.type)}</span>
           </div>
           <p class="sch-body">${escapeHtml(s.description)}</p>
           <div class="sch-actions">
@@ -748,31 +714,28 @@
       if (!s) return;
 
       $("modalTitle").textContent = s.title;
-      $("modalSub").textContent = `${s.provider} • ${s.level} • ${s.field}`;
+      $("modalSub").textContent = `${s.provider} • ${s.field}`;
       $("modalLink").href = s.link;
-
-      const due = daysUntil(s.deadline);
-      const status = due < 0 ? "Closed" : (due === 0 ? "Due Today" : `Due in ${due} day(s)`);
 
       $("modalBody").innerHTML = `
         <p style="margin-top:0;">${escapeHtml(s.description)}</p>
 
         <div class="modal-grid">
           <div class="kv">
-            <div class="k">Award Amount</div>
-            <div class="v">${escapeHtml(formatMoney(s.award))}</div>
-          </div>
-          <div class="kv">
-            <div class="k">Deadline</div>
-            <div class="v">${escapeHtml(s.deadline)} (${escapeHtml(status)})</div>
-          </div>
-          <div class="kv">
             <div class="k">Type</div>
             <div class="v">${escapeHtml(s.type)}</div>
           </div>
           <div class="kv">
+            <div class="k">Field</div>
+            <div class="v">${escapeHtml(s.field)}</div>
+          </div>
+          <div class="kv">
             <div class="k">Eligible Applicants</div>
             <div class="v">${escapeHtml(s.eligibility.join(", "))}</div>
+          </div>
+          <div class="kv">
+            <div class="k">Award / Benefits</div>
+            <div class="v">${escapeHtml(formatMoney(s.award))}</div>
           </div>
         </div>
 
@@ -787,13 +750,11 @@
       const summary = [
         `Scholarship: ${s.title}`,
         `Provider: ${s.provider}`,
-        `Level/Field: ${s.level} / ${s.field}`,
+        `Field: ${s.field}`,
         `Type: ${s.type}`,
-        `Award: ${formatMoney(s.award)}`,
-        `Deadline: ${s.deadline}`,
         `Eligibility: ${s.eligibility.join(", ")}`,
         `Requirements: ${s.requirements.join("; ")}`,
-        `Link: ${s.link}`
+        `Official link: ${s.link}`
       ].join("\n");
 
       $("copyBtn").onclick = async () => {
@@ -834,12 +795,10 @@
     $("applyBtn").addEventListener("click", applyFilters);
     $("resetBtn").addEventListener("click", () => {
       $("q").value = "";
-      $("level").value = "";
       $("field").value = "";
       $("citizenship").value = "";
       $("type").value = "";
       $("minAward").value = "";
-      $("deadline").value = "";
       $("sort").value = "relevance";
       applyFilters();
     });
@@ -857,7 +816,7 @@
     });
 
     renderFeatured();
-    renderResults(SCHOLARSHIPS.slice().sort((a,b) => new Date(a.deadline) - new Date(b.deadline)));
+    renderResults(SCHOLARSHIPS.slice());
     applyFilters();
   </script>
 
@@ -876,7 +835,7 @@
           customIconSrc: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/google-messages.svg",
         },
         chatWindow: {
-          welcomeMessage: "Hi! 👋 I'm your AI Scholarship Assistant. Ask me anything about scholarships, deadlines, or how to apply.",
+          welcomeMessage: "Hi! 👋 I'm your AI Scholarship Assistant. Ask me anything about scholarships, eligibility, or how to apply.",
           backgroundColor: "#ffffff",
           height: 600,
           width: 400,
@@ -906,5 +865,3 @@
   </script>
 </body>
 </html>
-
-
