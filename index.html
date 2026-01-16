@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <meta name="description" content="ScholarMatch scholarship search engine. Browse, filter, and compare scholarships easily." />
+  <meta
+    name="description"
+    content="ScholarMatch scholarship search engine. Browse, filter, and compare scholarships easily."
+  />
   <meta name="keywords" content="scholarship finder, scholarship search, filters, funding" />
   <title>ScholarMatch — Scholarship Search Engine</title>
 
@@ -12,7 +15,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 
   <!-- FIXED: stylesheet path (your repo has styles.css in root, not css/styles.css) -->
   <link rel="stylesheet" href="./styles.css" />
@@ -20,176 +26,259 @@
   <!-- Page-specific, minimal CSS to match your layout/colors -->
   <style>
     :root{
-  --primary: #2563EB;
-  --primary-700: #1D4ED8;
-  --primary-50: #EFF6FF;
-  --blue-surface: #F3F7FF;
-  --neutral-900:#0F172A;
-  --neutral-700:#334155;
-  --neutral-500:#64748B;
-  --neutral-200:#E2E8F0;
-  --neutral-100:#F1F5F9;
-  --white:#ffffff;
-  --radius: 16px;
-  --shadow-soft: 0 6px 20px rgba(15,23,42,0.06);
-  --font: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-}
+      --primary: #2563EB;
+      --neutral-900:#0F172A;
+      --neutral-700:#334155;
+      --neutral-500:#64748B;
+      --neutral-200:#E2E8F0;
+      --neutral-100:#F1F5F9;
+      --white:#ffffff;
+      --radius: 16px;
+      --shadow-soft: 0 6px 20px rgba(15,23,42,0.06);
+      --font: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
 
-body{
-  font-family: var(--font);
-  color: var(--neutral-900);
-  background: var(--blue-surface); /* adds a subtle blue page background */
-}
+    body{font-family: var(--font); color: var(--neutral-900); background: #fff;}
+    .container{max-width: 1100px; margin: 0 auto; padding: 0 20px;}
 
-.container{max-width: 1100px; margin: 0 auto; padding: 0 20px;}
+    /* Header */
+    .header{
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--neutral-200);
+      z-index: 50;
+    }
+    .header-content{display:flex; align-items:center; justify-content:space-between; padding: 14px 0;}
+    .logo{display:flex; align-items:center; gap: 10px; text-decoration:none;}
+    .logo-icon{width:34px; height:34px;}
+    .logo-text{font-size: 18px; margin:0; color: var(--neutral-900); font-weight: 700;}
+    .nav-list{display:flex; gap: 18px; list-style:none; margin:0; padding:0;}
+    .nav-link{text-decoration:none; color: var(--neutral-700); font-weight: 500;}
+    .nav-link:hover{color: var(--primary);}
 
-/* ===== HEADER (resized + cleaner, like screenshot) ===== */
-.header{
-  position: sticky;
-  top: 0;
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(10px);
-  border-bottom: 2px solid rgba(37,99,235,0.18);
-  z-index: 50;
-}
+    /* Hero */
+    .hero{padding: 56px 0; background: linear-gradient(180deg, #F8FAFF 0%, #ffffff 75%);}
+    .hero-content{max-width: 760px;}
+    .hero-title{font-size: 40px; line-height:1.1; margin:0 0 12px;}
+    .hero-subtitle{color: var(--neutral-700); font-size: 16px; margin:0 0 22px;}
+    .cta-row{display:flex; gap: 12px; flex-wrap: wrap;}
+    .cta-button, .secondary-button{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 12px 16px; border-radius: 12px; font-weight: 600; text-decoration:none;
+      border: 1px solid transparent;
+    }
+    .cta-button{background: var(--primary); color: var(--white); box-shadow: var(--shadow-soft);}
+    .cta-button:hover{filter: brightness(0.95);}
+    .secondary-button{background: var(--white); border-color: var(--neutral-200); color: var(--neutral-900);}
+    .secondary-button:hover{border-color: var(--primary); color: var(--primary);}
 
-.header-content{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap: 18px;
-  padding: 12px 0; /* slightly smaller header */
-}
+    /* Sections */
+    .section{padding: 34px 0 56px;}
+    .section-title{font-size: 26px; margin:0 0 8px;}
+    .section-subtitle{margin:0 0 18px; color: var(--neutral-500);}
 
-.logo{display:flex; align-items:center; gap: 10px; text-decoration:none;}
-.logo-icon{width:40px; height:40px;}   /* slightly bigger logo like screenshot */
-.logo-text{
-  font-size: 20px;
-  margin:0;
-  color: var(--primary);
-  font-weight: 800;
-  letter-spacing: .2px;
-}
+    /* Search Layout */
+    .search-grid{display:grid; grid-template-columns: 360px 1fr; gap: 18px; align-items:start;}
+    @media (max-width: 980px){ .search-grid{grid-template-columns: 1fr;} }
 
-/* Nav: more compact and evenly spaced; wraps nicely on smaller screens */
-.nav-list{
-  display:flex;
-  gap: 10px;
-  list-style:none;
-  margin:0;
-  padding:0;
-  flex-wrap: wrap;          /* allows wrap like screenshot if needed */
-  justify-content:flex-end; /* keeps items to the right */
-}
+    .card{
+      background: var(--white);
+      border: 1px solid var(--neutral-200);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+    }
 
-.nav-link{
-  display:inline-block;
-  text-decoration:none;
-  color: var(--neutral-700);
-  font-weight: 600;
-  font-size: 13px;          /* smaller so it fits */
-  line-height: 1.15;
-  text-align:center;
-  padding: 8px 10px;        /* makes each item “tile-like” but compact */
-  border-radius: 12px;
-  transition: background .15s ease, color .15s ease, border-color .15s ease;
-  border: 1px solid transparent;
-  white-space: normal;
-}
+    .card-pad{padding: 16px;}
+    .filters-header{
+      display:flex; align-items:center; justify-content:space-between; gap: 12px;
+      padding: 16px; border-bottom: 1px solid var(--neutral-200);
+    }
+    .filters-header h3{margin:0; font-size: 16px;}
+    .pill{
+      font-size: 12px; color: var(--neutral-700);
+      background: var(--neutral-100);
+      border: 1px solid var(--neutral-200);
+      padding: 4px 10px; border-radius: 999px;
+      white-space: nowrap;
+    }
 
-.nav-link:hover{
-  color: var(--primary-700);
-  background: var(--primary-50);
-  border-color: rgba(37,99,235,0.18);
-}
+    .form-group{margin-bottom: 14px;}
+    .form-label{display:block; font-weight: 600; font-size: 13px; margin-bottom: 6px;}
+    .help-text{display:block; font-size: 12px; color: var(--neutral-500); margin-top: 6px;}
+    .form-input, .form-select{
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--neutral-200);
+      outline: none;
+      font-size: 14px;
+      background: #fff;
+    }
+    .form-input:focus, .form-select:focus{
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(37,99,235,0.12);
+    }
 
-/* ===== HERO (more blue + livelier) ===== */
-.hero{
-  padding: 58px 0;
-  background: linear-gradient(180deg, var(--primary-700) 0%, var(--primary) 55%, #3B82F6 100%);
-  color: #fff;
-}
+    .row{display:flex; gap: 10px;}
+    .row > *{flex:1;}
 
-.hero-content{max-width: 760px;}
-.hero-title{font-size: 40px; line-height:1.1; margin:0 0 12px;}
-.hero-subtitle{color: rgba(255,255,255,0.90); font-size: 16px; margin:0 0 22px;}
+    .btn{
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-primary{background: var(--primary); color: #fff;}
+    .btn-primary:hover{filter: brightness(0.95);}
+    .btn-ghost{background: #fff; border-color: var(--neutral-200); color: var(--neutral-900);}
+    .btn-ghost:hover{border-color: var(--primary); color: var(--primary);}
 
-.cta-button, .secondary-button{
-  display:inline-flex; align-items:center; justify-content:center;
-  padding: 12px 16px; border-radius: 12px; font-weight: 700; text-decoration:none;
-  border: 1px solid transparent;
-}
-.cta-button{
-  background: #ffffff;
-  color: var(--primary-700);
-  box-shadow: 0 10px 28px rgba(0,0,0,0.18);
-}
-.cta-button:hover{filter: brightness(0.97);}
+    /* Results */
+    .results-header{
+      display:flex; justify-content:space-between; align-items:flex-start;
+      gap: 12px; padding: 16px; border-bottom: 1px solid var(--neutral-200);
+    }
+    .results-meta{display:flex; flex-direction:column; gap: 4px;}
+    .results-count{font-weight: 700;}
+    .results-hint{color: var(--neutral-500); font-size: 12px; margin:0;}
+    .chips{display:flex; gap: 8px; flex-wrap: wrap; justify-content:flex-end;}
+    .chip{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--neutral-200);
+      background: var(--neutral-100);
+      color: var(--neutral-700);
+    }
 
-.secondary-button{
-  background: rgba(255,255,255,0.14);
-  border-color: rgba(255,255,255,0.28);
-  color: #fff;
-}
-.secondary-button:hover{background: rgba(255,255,255,0.20);}
+    .list{padding: 16px; display:grid; gap: 12px;}
+    .sch-card{padding: 14px; border-radius: 14px; border: 1px solid var(--neutral-200); background: #fff;}
+    .sch-top{display:flex; justify-content:space-between; gap: 12px; align-items:flex-start;}
+    .sch-title{margin:0; font-size: 16px;}
+    .sch-provider{margin:4px 0 0; color: var(--neutral-500); font-size: 13px;}
+    .badge{
+      font-size: 12px; font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(37,99,235,0.10);
+      color: var(--primary);
+      border: 1px solid rgba(37,99,235,0.18);
+      white-space: nowrap;
+    }
+    .sch-body{margin-top: 10px; color: var(--neutral-700); font-size: 13px; line-height:1.45;}
+    .sch-tags{display:flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;}
+    .tag{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--neutral-200);
+      background: #fff;
+      color: var(--neutral-700);
+    }
+    .sch-actions{display:flex; gap: 10px; margin-top: 12px; flex-wrap: wrap;}
+    .link-btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 10px 12px; border-radius: 12px;
+      border: 1px solid var(--neutral-200);
+      background: #fff; color: var(--neutral-900); text-decoration:none; font-weight: 700; font-size: 13px;
+      cursor: pointer;
+    }
+    .link-btn:hover{border-color: var(--primary); color: var(--primary);}
+    .link-btn.primary{background: var(--primary); color: #fff; border-color: var(--primary);}
+    .link-btn.primary:hover{filter: brightness(0.95);}
 
-/* ===== SECTIONS: add subtle blue separation ===== */
-.section{padding: 34px 0 56px;}
-.section:nth-of-type(even){
-  background: #ffffff; /* alternates white/blue surface for readability */
-}
-.section-title{font-size: 26px; margin:0 0 8px;}
-.section-subtitle{margin:0 0 18px; color: var(--neutral-500);}
+    /* Modal */
+    .modal-backdrop{
+      position: fixed; inset: 0;
+      background: rgba(2,6,23,0.55);
+      display:none; align-items:center; justify-content:center;
+      padding: 18px; z-index: 100;
+    }
+    .modal{
+      width: min(760px, 100%);
+      background: #fff; border-radius: 18px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      border: 1px solid var(--neutral-200);
+      overflow: hidden;
+    }
+    .modal-head{
+      display:flex; justify-content:space-between; align-items:flex-start; gap: 12px;
+      padding: 16px; border-bottom: 1px solid var(--neutral-200);
+    }
+    .modal-title{margin:0; font-size: 18px;}
+    .modal-sub{margin: 6px 0 0; color: var(--neutral-500); font-size: 13px;}
+    .modal-body{padding: 16px; color: var(--neutral-700); font-size: 14px; line-height:1.55;}
+    .modal-grid{display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;}
+    @media (max-width: 720px){ .modal-grid{grid-template-columns: 1fr;} }
+    .kv{border: 1px solid var(--neutral-200); border-radius: 14px; padding: 12px; background: #fff;}
+    .k{font-weight: 700; font-size: 12px; color: var(--neutral-500); text-transform: uppercase; letter-spacing: .04em;}
+    .v{margin-top: 6px; font-weight: 600; color: var(--neutral-900);}
 
-/* Cards pop more on blue background */
-.card{
-  background: var(--white);
-  border: 1px solid var(--neutral-200);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-soft);
-}
+    .modal-foot{
+      display:flex; gap: 10px; padding: 16px;
+      border-top: 1px solid var(--neutral-200);
+      justify-content:flex-end; flex-wrap: wrap;
+    }
+    .icon-btn{
+      border: 1px solid var(--neutral-200);
+      background: #fff; border-radius: 12px;
+      padding: 10px 12px;
+      font-weight: 800; cursor:pointer;
+    }
+    .icon-btn:hover{border-color: var(--primary); color: var(--primary);}
 
+    /* Footer */
+    .footer{border-top: 1px solid var(--neutral-200); padding: 18px 0; color: var(--neutral-500); font-size: 13px;}
+    .footer-text{margin:0;}
   </style>
 </head>
 
 <body>
-  <!-- Header -->
   <!-- Header (UPDATED NAVBAR) -->
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ScholarMatch - An AI-powered scholarship finder that helps students discover scholarships they qualify for.">
-    <meta name="keywords" content="scholarships, student funding, AI, financial aid">
-    <meta name="author" content="ScholarMatch Team">
-    <meta name="theme-color" content="#2563EB">
-    
-    <title>ScholarMatch</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%232563EB'>🎓</text></svg>">
-</head>
-<body>
-    <header class="header" role="banner">
+  <header class="header" role="banner">
     <div class="container">
-        <div class="header-content">
-            <a href="https://raelyn23050595.github.io/ScholarMatch/" class="logo">
-                <img src="images/logo.png" alt="ScholarMatch Logo" class="logo-icon">
-                <h1 class="logo-text">ScholarMatch</h1>
-            </a>
-            <nav class="nav" role="navigation" aria-label="Main navigation">
-                <ul class="nav-list">
-                    <li><a href="https://23018472-tunaungmyin.github.io/C240_AungMyin/" class="nav-link">Search Scholarships<br>(Aung Myin)</a></li>
-                    <li><a href="https://raelyn23050595.github.io/ScholarMatch_Raelyn/" class="nav-link">Scholarship Comparison<br>(Raelyn)</a></li>
-                    <li><a href="https://tohwangxin.github.io/C240_FA/" class="nav-link">Scholarship Application Guidance<br>(WangXin)</a></li>
-                    <li><a href="https://scholarmatch-a13r.onrender.com/" class="nav-link">Scholarship Eligibility Guidance <br>(Ee Weng)</a></li>
-                    <li><a href="https://23026439-ralph.github.io/C240-FA/" class="nav-link">Scholarship Fraud Detetction (Ralph)</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</header>
+      <div class="header-content">
+        <a href="https://raelyn23050595.github.io/ScholarMatch/" class="logo">
+          <img src="./logo.png" alt="ScholarMatch Logo" class="logo-icon" />
+          <h1 class="logo-text">ScholarMatch</h1>
+        </a>
 
+        <nav class="nav" role="navigation" aria-label="Main navigation">
+          <ul class="nav-list">
+            <li>
+              <a href="https://23018472-tunaungmyin.github.io/C240_AungMyin/" class="nav-link">
+                Search Scholarships<br />(Aung Myin)
+              </a>
+            </li>
+            <li>
+              <a href="https://raelyn23050595.github.io/ScholarMatch_Raelyn/" class="nav-link">
+                Scholarship Comparison<br />(Raelyn)
+              </a>
+            </li>
+            <li>
+              <a href="https://tohwangxin.github.io/C240_FA/" class="nav-link">
+                Scholarship Application Guidance<br />(WangXin)
+              </a>
+            </li>
+            <li>
+              <a href="https://scholarmatch-a13r.onrender.com/" class="nav-link">
+                Ee Weng
+              </a>
+            </li>
+            <li>
+              <a href="https://23026439-ralph.github.io/C240-FA/" class="nav-link">
+                Scholarship Fraud Detetction (Ralph)
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
 
   <!-- Main Content -->
   <main id="main-content" role="main">
@@ -202,6 +291,7 @@ body{
             Browse scholarships by field and eligibility. Use filters to narrow down
             to what matters most—fast.
           </p>
+
           <div class="cta-row">
             <a href="#search" class="cta-button">Start Searching</a>
             <a href="#featured" class="secondary-button">View Featured Scholarships</a>
@@ -214,7 +304,9 @@ body{
     <section class="section" id="search">
       <div class="container">
         <h2 class="section-title">Scholarship Search Engine</h2>
-        <p class="section-subtitle">Use the filters to narrow results. Click “View Details” for full information.</p>
+        <p class="section-subtitle">
+          Use the filters to narrow results. Click “View Details” for full information.
+        </p>
 
         <div class="search-grid">
           <!-- Filters -->
@@ -227,11 +319,16 @@ body{
             <div class="card-pad">
               <div class="form-group">
                 <label for="q" class="form-label">Keyword</label>
-                <input id="q" class="form-input" type="text" placeholder="e.g., merit, global, leadership" />
-                <span class="help-text">Search by scholarship name, provider, or description keywords.</span>
+                <input
+                  id="q"
+                  class="form-input"
+                  type="text"
+                  placeholder="e.g., merit, global, leadership"
+                />
+                <span class="help-text">
+                  Search by scholarship name, provider, or description keywords.
+                </span>
               </div>
-
-              <!-- REMOVED: Study Level -->
 
               <div class="row">
                 <div class="form-group">
@@ -263,15 +360,20 @@ body{
                 </select>
               </div>
 
-              <!-- Kept Min Award input for UI consistency, but these scholarships have benefits that vary by programme.
-                   If you want, tell me and I will remove this too. -->
               <div class="form-group">
                 <label for="minAward" class="form-label">Min Award (SGD)</label>
-                <input id="minAward" class="form-input" type="number" min="0" step="500" placeholder="Optional (may not apply for all)" />
-                <span class="help-text">Many university scholarships cover tuition/allowances; refer to official pages for exact benefits.</span>
+                <input
+                  id="minAward"
+                  class="form-input"
+                  type="number"
+                  min="0"
+                  step="500"
+                  placeholder="Optional (may not apply for all)"
+                />
+                <span class="help-text">
+                  Many university scholarships cover tuition/allowances; refer to official pages for exact benefits.
+                </span>
               </div>
-
-              <!-- REMOVED: Application Deadline filter -->
 
               <div class="form-group">
                 <label for="sort" class="form-label">Sort by</label>
@@ -298,7 +400,9 @@ body{
             <div class="results-header">
               <div class="results-meta">
                 <div class="results-count" id="resultsCount">0 scholarships</div>
-                <p class="results-hint" id="resultsHint">Use filters on the left to refine results.</p>
+                <p class="results-hint" id="resultsHint">
+                  Use filters on the left to refine results.
+                </p>
               </div>
               <div class="chips" id="activeChips" aria-label="Active filters"></div>
             </div>
@@ -333,15 +437,23 @@ body{
           <div class="card-pad" style="display:grid; gap:12px;">
             <div class="sch-card">
               <h3 class="sch-title">Apply early</h3>
-              <p class="sch-body">University scholarships can have specific windows. Submit applications as soon as your admission application allows.</p>
+              <p class="sch-body">
+                University scholarships can have specific windows. Submit applications as soon as your admission application allows.
+              </p>
             </div>
+
             <div class="sch-card">
               <h3 class="sch-title">Show leadership and impact</h3>
-              <p class="sch-body">Use specific outcomes (metrics, roles, competitions, service) to demonstrate your contributions.</p>
+              <p class="sch-body">
+                Use specific outcomes (metrics, roles, competitions, service) to demonstrate your contributions.
+              </p>
             </div>
+
             <div class="sch-card">
               <h3 class="sch-title">Prepare referees</h3>
-              <p class="sch-body">Give referees your CV and a shortlist of achievements so they can write stronger recommendations.</p>
+              <p class="sch-body">
+                Give referees your CV and a shortlist of achievements so they can write stronger recommendations.
+              </p>
             </div>
           </div>
         </div>
@@ -357,7 +469,14 @@ body{
   </footer>
 
   <!-- Details Modal -->
-  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+  <div
+    class="modal-backdrop"
+    id="modalBackdrop"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+    aria-hidden="true"
+  >
     <div class="modal">
       <div class="modal-head">
         <div>
@@ -392,9 +511,11 @@ body{
         type: "Merit",
         eligibility: ["Singapore Citizen"],
         award: 0,
-        description: "NUS entrance scholarship for outstanding freshmen; benefits vary by programme and official terms.",
+        description:
+          "NUS entrance scholarship for outstanding freshmen; benefits vary by programme and official terms.",
         requirements: ["Admission application", "Scholarship application", "Interview (if shortlisted)"],
-        link: "https://www.nus.edu.sg/oam/scholarships/scholarships-for-freshmen-singapore-citizens/nus-global-merit-scholarship"
+        link:
+          "https://www.nus.edu.sg/oam/scholarships/scholarships-for-freshmen-singapore-citizens/nus-global-merit-scholarship"
       },
       {
         id: "nus-ms",
@@ -404,9 +525,11 @@ body{
         type: "Merit",
         eligibility: ["Singapore Citizen"],
         award: 0,
-        description: "NUS entrance scholarship recognising academic excellence, leadership, and strong co-curricular record.",
+        description:
+          "NUS entrance scholarship recognising academic excellence, leadership, and strong co-curricular record.",
         requirements: ["Admission application", "Scholarship application", "Interview (if shortlisted)"],
-        link: "https://nus.edu.sg/oam/scholarships/scholarships-for-freshmen-singapore-citizens/nus-merit-scholarship"
+        link:
+          "https://nus.edu.sg/oam/scholarships/scholarships-for-freshmen-singapore-citizens/nus-merit-scholarship"
       },
       {
         id: "nus-us",
@@ -416,9 +539,11 @@ body{
         type: "Merit",
         eligibility: ["Singapore Citizen"],
         award: 0,
-        description: "NUS entrance scholarship for high-calibre freshmen; benefits and conditions are detailed on the official page.",
+        description:
+          "NUS entrance scholarship for high-calibre freshmen; benefits and conditions are detailed on the official page.",
         requirements: ["Admission application", "Scholarship application", "Interview (if shortlisted)"],
-        link: "https://www.nus.edu.sg/oam/scholarships/scholarships-for-freshmen-singapore-citizens/nus-undergraduate-scholarship"
+        link:
+          "https://www.nus.edu.sg/oam/scholarships/scholarships-for-freshmen-singapore-citizens/nus-undergraduate-scholarship"
       },
 
       // =========================
@@ -432,9 +557,11 @@ body{
         type: "Merit",
         eligibility: ["Singapore Citizen", "Singapore PR", "International"],
         award: 0,
-        description: "NTU scholarship for outstanding freshmen; typically includes tuition and allowances subject to terms.",
+        description:
+          "NTU scholarship for outstanding freshmen; typically includes tuition and allowances subject to terms.",
         requirements: ["Admission application", "Scholarship application", "Interview (if shortlisted)"],
-        link: "https://www.ntu.edu.sg/admissions/undergraduate/scholarships/scholarship/Nanyang_Merit_Scholarship"
+        link:
+          "https://www.ntu.edu.sg/admissions/undergraduate/scholarships/scholarship/Nanyang_Merit_Scholarship"
       },
       {
         id: "ntu-ngs",
@@ -444,9 +571,11 @@ body{
         type: "Merit",
         eligibility: ["Singapore Citizen", "Singapore PR", "International"],
         award: 0,
-        description: "NTU scholarship recognising students with outstanding academic results and strong leadership qualities.",
+        description:
+          "NTU scholarship recognising students with outstanding academic results and strong leadership qualities.",
         requirements: ["Admission application", "Scholarship application", "Interview (if shortlisted)"],
-        link: "https://www.ntu.edu.sg/admissions/undergraduate/scholarships/scholarship-listings/detail/nanyang-scholarship"
+        link:
+          "https://www.ntu.edu.sg/admissions/undergraduate/scholarships/scholarship-listings/detail/nanyang-scholarship"
       },
       {
         id: "ntu-ewb",
@@ -456,9 +585,11 @@ body{
         type: "Sports",
         eligibility: ["Singapore Citizen", "Singapore PR", "International"],
         award: 0,
-        description: "Scholarship supporting undergraduates in sport-related programmes (e.g., Sport Science & Management), subject to official eligibility and terms.",
+        description:
+          "Scholarship supporting undergraduates in sport-related programmes (e.g., Sport Science & Management), subject to official eligibility and terms.",
         requirements: ["Programme-specific eligibility", "Scholarship application", "Interview (if shortlisted)"],
-        link: "https://www.ntu.edu.sg/admissions/undergraduate/scholarships/ewbarkerscholarship"
+        link:
+          "https://www.ntu.edu.sg/admissions/undergraduate/scholarships/ewbarkerscholarship"
       },
 
       // =========================
@@ -472,9 +603,11 @@ body{
         type: "Merit",
         eligibility: ["Singapore Citizen", "Singapore PR", "International"],
         award: 0,
-        description: "SMU scholarship programme offering a tuition fee waiver and development opportunities, subject to terms.",
+        description:
+          "SMU scholarship programme offering a tuition fee waiver and development opportunities, subject to terms.",
         requirements: ["Admission application", "Scholarship consideration/application", "Interview (if shortlisted)"],
-        link: "https://admissions.smu.edu.sg/financial-matters/financial-aid/smu-merit-scholarship-programme"
+        link:
+          "https://admissions.smu.edu.sg/financial-matters/financial-aid/smu-merit-scholarship-programme"
       },
       {
         id: "smu-ypx",
@@ -484,9 +617,11 @@ body{
         type: "Sports",
         eligibility: ["Singapore Citizen"],
         award: 0,
-        description: "SMU scholarship recognising outstanding athletes with strong leadership potential, subject to official criteria.",
+        description:
+          "SMU scholarship recognising outstanding athletes with strong leadership potential, subject to official criteria.",
         requirements: ["Admission application", "Scholarship application/consideration", "Sports achievements documentation"],
-        link: "https://admissions.smu.edu.sg/financial-matters/financial-aid/yip-pin-xiu-scholarship"
+        link:
+          "https://admissions.smu.edu.sg/financial-matters/financial-aid/yip-pin-xiu-scholarship"
       },
       {
         id: "smu-lkcsp",
@@ -496,9 +631,11 @@ body{
         type: "Merit",
         eligibility: ["Singapore Citizen", "Singapore PR", "International"],
         award: 0,
-        description: "One of SMU’s most prestigious scholarships; benefits include tuition waiver and enrichment opportunities.",
+        description:
+          "One of SMU’s most prestigious scholarships; benefits include tuition waiver and enrichment opportunities.",
         requirements: ["Admission application", "Scholarship application/consideration", "Interview (if shortlisted)"],
-        link: "https://admissions.smu.edu.sg/financial-matters/financial-aid/lee-kong-chian-scholars-programme"
+        link:
+          "https://admissions.smu.edu.sg/financial-matters/financial-aid/lee-kong-chian-scholars-programme"
       }
     ];
 
@@ -506,8 +643,11 @@ body{
 
     function formatMoney(n){
       if (!n || Number(n) === 0) return "See official page";
-      try { return new Intl.NumberFormat("en-SG", { style:"currency", currency:"SGD", maximumFractionDigits:0 }).format(n); }
-      catch { return "SGD " + n; }
+      try {
+        return new Intl.NumberFormat("en-SG", { style:"currency", currency:"SGD", maximumFractionDigits:0 }).format(n);
+      } catch {
+        return "SGD " + n;
+      }
     }
 
     function buildActiveChips(filters){
@@ -555,6 +695,7 @@ body{
       const chips = buildActiveChips(filters);
       const chipWrap = $("activeChips");
       chipWrap.innerHTML = "";
+
       chips.forEach(c => {
         const el = document.createElement("span");
         el.className = "chip";
@@ -574,7 +715,6 @@ body{
       if (filters.type) out = out.filter(s => s.type === filters.type);
       if (filters.citizenship) out = out.filter(s => s.eligibility.includes(filters.citizenship));
 
-      // Optional: numeric award filter (note: these scholarships often have non-numeric benefits)
       if (filters.minAward) out = out.filter(s => (Number(s.award) || 0) >= filters.minAward);
 
       if (filters.sort === "title_asc"){
@@ -633,7 +773,6 @@ body{
     }
 
     function renderFeatured(){
-      // Curate featured as a mix across universities (top 3 by prestige keywords / not by award)
       const featuredIds = ["nus-gms", "ntu-ngs", "smu-lkcsp"];
       const featured = featuredIds.map(id => SCHOLARSHIPS.find(s => s.id === id)).filter(Boolean);
 
@@ -744,11 +883,13 @@ body{
         .replaceAll('"',"&quot;")
         .replaceAll("'","&#039;");
     }
+
     function escapeAttr(str){
       return escapeHtml(str).replaceAll("`","&#096;");
     }
 
     $("applyBtn").addEventListener("click", applyFilters);
+
     $("resetBtn").addEventListener("click", () => {
       $("q").value = "";
       $("field").value = "";
@@ -760,13 +901,18 @@ body{
     });
 
     $("q").addEventListener("keydown", (e) => {
-      if (e.key === "Enter"){ e.preventDefault(); applyFilters(); }
+      if (e.key === "Enter"){
+        e.preventDefault();
+        applyFilters();
+      }
     });
 
     $("closeModalBtn").addEventListener("click", closeModal);
+
     $("modalBackdrop").addEventListener("click", (e) => {
       if (e.target === $("modalBackdrop")) closeModal();
     });
+
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeModal();
     });
@@ -777,7 +923,7 @@ body{
   </script>
 
   <script type="module">
-    import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+    import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js";
     Chatbot.init({
       chatflowid: "6a5712e1-6ff9-48e7-baee-c7b9c64866b4",
       apiHost: "https://flowise-production-ad0b.up.railway.app",
@@ -788,10 +934,12 @@ body{
           bottom: 20,
           size: "medium",
           iconColor: "white",
-          customIconSrc: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/google-messages.svg",
+          customIconSrc:
+            "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/google-messages.svg"
         },
         chatWindow: {
-          welcomeMessage: "Hi! 👋 I'm your AI Scholarship Assistant. Ask me anything about scholarships, eligibility, or how to apply.",
+          welcomeMessage:
+            "Hi! 👋 I'm your AI Scholarship Assistant. Ask me anything about scholarships, eligibility, or how to apply.",
           backgroundColor: "#ffffff",
           height: 600,
           width: 400,
@@ -801,26 +949,25 @@ body{
             backgroundColor: "#F1F5F9",
             textColor: "#1E293B",
             showAvatar: true,
-            avatarSrc: "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/parroticon.png",
+            avatarSrc:
+              "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/parroticon.png"
           },
           userMessage: {
             backgroundColor: "#2563EB",
             textColor: "#ffffff",
             showAvatar: true,
-            avatarSrc: "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/usericon.png",
+            avatarSrc:
+              "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/usericon.png"
           },
           textInput: {
             placeholder: "Ask about scholarships...",
             backgroundColor: "#ffffff",
             textColor: "#1E293B",
-            sendButtonColor: "#2563EB",
+            sendButtonColor: "#2563EB"
           }
         }
       }
-    })
+    });
   </script>
 </body>
 </html>
-
-
-
